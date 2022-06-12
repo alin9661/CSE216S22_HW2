@@ -41,7 +41,28 @@ export default class BinarySearchTree {
 
     // @todo - YOU MUST DEFINE THIS METHOD
     getValue(key) {
-        return null;
+        if (root == null) {
+            return null;
+        }
+        return this.getValueRecur(key, root);
+    }
+
+    getValueRecur(key, node) {
+        if (key < node.key) {
+            if (node.left == null || node.left == undefined) {
+                return null;
+            } else {
+                return this.getValueRecur(key, node.left);
+            }
+        } else if (key === node.key) {
+            return node.data;
+        } else {
+            if (node.right == null || node.right == undefined) {
+                return null;
+            } else {
+                return this.getValueRecur(key, node.right);
+            }
+        }
     }
 
     // @todo - YOU MUST DEFINE THIS METHOD
