@@ -93,7 +93,59 @@ export default class BinarySearchTree {
 
     // @todo - YOU MUST DEFINE THIS METHOD
     removeValue(key) {
-
+        let cursor = this.root;
+        let nodeFound = false;
+        while(!nodeFound) {
+            if (key === cursor.key) {
+                if (cursor.left != null) {
+                    let largestValue = cursor.left;
+                    while (largestValue.right != null) {
+                        largestValue = largestValue.right;
+                    }
+                    cursor.key = largestValue.key;
+                    cursor.data = largestValue.data;
+                    if (largestValue == largestValue.parent.left) {
+                        largestValue.parent.left = largestValue.left;
+                    } else {
+                        largestValue.parent.right = largestValue.left;
+                    }
+                } else if (cursor.right != null) {
+                    let smallestValue = cursor.right;
+                    while (smallestValue.left != null) {
+                        smallestValue = smallestValue.left;
+                    }
+                    cursor.key = smallestValue.key;
+                    cursor.data = smallestValue.data;
+                    if (smallestValue == smallestValue.parent.right) {
+                        smallestValue.parent.right = smallestValue.right;
+                    } else {
+                        smallestValue.parent.left = smallestValue.right;
+                    }
+                } else {
+                    if (cursor == this.root) {
+                        this.root = null;
+                    } else if (cursor == cursor.parent.left) {
+                        cursor.parent.left = null;
+                    } else {
+                        cursor.parent.right = null;
+                    }
+                    this.size--;
+                    nodeFound = true;
+                }
+            } else if(key < cursor.key) {
+                if (cursor.left == null) {
+                    return;
+                } else {
+                    cursor = cursor.left;
+                }
+            } else {
+                if (cursor.right == null) {
+                    return;
+                } else {
+                    cursor = cursor.right;
+                }
+            }
+        }
     }
 
     toStringRecursively(traveller, level) {
