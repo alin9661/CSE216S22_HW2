@@ -49,7 +49,7 @@ export default class OpenAddressHashTable {
     getValue(key) {
         let index = this.hashCode(key);
         let count = 0;
-        while (count < length) {
+        while (count < this.length) {
             let tempKVP = this.hashTable[index];
             if (tempKVP === null) {
                 return null;
@@ -57,7 +57,7 @@ export default class OpenAddressHashTable {
                 return tempKVP.value;
             }
             index++;
-            if (index === length) {
+            if (index === this.length) {
                 index %= this.length;
             }
             count++;
