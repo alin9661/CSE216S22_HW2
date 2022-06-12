@@ -67,10 +67,10 @@ export default class BinarySearchTree {
 
     // @todo - YOU MUST DEFINE THIS METHOD
     getValue(key) {
-        if (root == null) {
+        if (this.root == null) {
             return null;
         }
-        return this.getValueRecur(key, root);
+        return this.getValueRecur(key, this.root);
     }
 
     getValueRecur(key, node) {
