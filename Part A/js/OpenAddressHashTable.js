@@ -74,17 +74,18 @@ export default class OpenAddressHashTable {
         let index = this.hashCode(key);
         let count = 0;
         while (count < this.length) {
-            if (this.hashTable[index] === undefined) {
+            let tempKVP = this.hashTable[index];
+            if (tempKVP == undefined || tempKVP == null) {
                 this.hashTable[index] = new KeyValuePair(key, item);
                 this.size++;
                 return;
-            } else if (key === this.hashTable[index].key) {
+            } else if (key === tempKVP.key) {
                 this.hashTable[index].value = item;
                 return;
             }
             index++;
-            if (index === length) {
-                index %= length;
+            if (index == this.length) {
+                index %= this.length;
             }
             count++;
         }
