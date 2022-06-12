@@ -36,7 +36,33 @@ export default class BinarySearchTree {
 
     // @todo - YOU MUST DEFINE THIS METHOD
     putValue(key, value) {
+        if (this.root == null) {
+            this.root = new Node(key, value, null, null, null);
+        }
+        this.putValueRecur(key, value, this.root);
+    }
 
+    putValueRecur(key, value, node) {
+        if (key < node.key) {
+            if (node.left == null) {
+                node.left = new Node(key, value, node, null, null);
+                this.size++;
+                return;
+            } else {
+                this.putValueRecur(key, value, node.left);
+            }
+        } else if (key === node.key) {
+            node.data = value;
+            return;
+        } else {
+            if (node.right == null || node.right == undefined) {
+                node.right = new Node(key, value, node, null, null);
+                this.size++;
+                return;
+            } else {
+                this.putValueRecur(key, value, node.right);
+            }
+        }
     }
 
     // @todo - YOU MUST DEFINE THIS METHOD
@@ -49,7 +75,7 @@ export default class BinarySearchTree {
 
     getValueRecur(key, node) {
         if (key < node.key) {
-            if (node.left == null || node.left == undefined) {
+            if (node.left == null) {
                 return null;
             } else {
                 return this.getValueRecur(key, node.left);
